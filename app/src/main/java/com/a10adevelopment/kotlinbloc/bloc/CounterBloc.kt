@@ -1,62 +1,32 @@
 package com.a10adevelopment.kotlinbloc.bloc
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 /**
- * Influenced by https://github.com/programadorthi/android-bloc/blob/master/arch/androidbloc/src/main/java/br/com/programadorthi/androidbloc/AndroidBloc.kt
+ * Inspired by https://github.com/programadorthi/android-bloc/blob/master/arch/androidbloc/src/main/java/br/com/programadorthi/androidbloc/AndroidBloc.kt
  */
 class CounterBloc(
-    private val blocScope: CoroutineScope,
+    blocScope: CoroutineScope,
     initialState: CounterState = CounterState.Initial,
-) {
-    private var eventCollectJob: Job? = null
+) : Bloc<CounterEvent, CounterState>(blocScope, initialState) {
 
-    private val _stateFlow: MutableStateFlow<CounterState> = MutableStateFlow(initialState)
-    val stateFlow = _stateFlow.asStateFlow()
-
-    private val _currentState get() = _stateFlow.value
-
-    private val _eventFlow = MutableSharedFlow<CounterEvent>()
-
-    init {
-        eventCollectJob = blocScope.launch {
-            _eventFlow.collect {
-                _stateFlow.emit(mapEventToState(it))
-            }
+    override suspend fun MutableStateFlow<CounterState>.mapEventToState(event: CounterEvent) {
+        when (event) {
+            is CounterEvent.Increase -> emit(onIncrease())
+            is CounterEvent.Decrease -> emit(onDecrease())
         }
     }
 
-    fun add(event: CounterEvent) {
-        blocScope.launch {
-            _eventFlow.emit(event)
-        }
-    }
-
-    fun onClose() {
-        eventCollectJob?.cancel()
-    }
-
-    private fun mapEventToState(event: CounterEvent): CounterState = when (event) {
-        is CounterEvent.Increase -> onIncrease()
-        is CounterEvent.Decrease -> onDecrease()
-    }
-
-    private fun onIncrease(): CounterState = when (val state = _currentState) {
+    private fun onIncrease(): CounterState = when (val state = currentState) {
         is CounterState.Initial -> CounterState.Counting(0)
         is CounterState.Counting -> state.increase()
     }
 
-    private fun onDecrease(): CounterState = when (val state = _currentState) {
+    private fun onDecrease(): CounterState = when (val state = currentState) {
         is CounterState.Initial -> CounterState.Counting(0)
         is CounterState.Counting -> state.decrease()
     }
-
 }
 
 sealed class CounterState {
