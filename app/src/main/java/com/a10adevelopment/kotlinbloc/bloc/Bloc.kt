@@ -28,10 +28,6 @@ abstract class Bloc<Event, State>(private val blocScope: CoroutineScope, initial
 
     protected abstract suspend fun FlowCollector<State>.mapEventToState(event: Event)
 
-    fun onClose() {
-        eventCollectJob?.cancel()
-    }
-
     private fun startCollectEvent() {
         eventCollectJob = blocScope.launch {
             _eventFlow.collect {
@@ -42,11 +38,19 @@ abstract class Bloc<Event, State>(private val blocScope: CoroutineScope, initial
                         return@collectState
                     }
                     val transition = Transition(currentState, it, nextState)
-                    Timber.d("\t${this@Bloc}: $transition")
+                    onTransition(transition)
                     _stateFlow.emit(nextState)
                 }
             }
         }
+    }
+
+    protected fun onTransition(transition: Transition<Event, State>) {
+        Timber.d("\t${this@Bloc}: $transition")
+    }
+
+    fun onClose() {
+        eventCollectJob?.cancel()
     }
 
     override fun toString(): String {
