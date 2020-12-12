@@ -44,7 +44,7 @@ abstract class Bloc<Event, State>(private val blocScope: CoroutineScope, initial
                     flow {
                         mapEventToState(it)
                     }.collect collectState@{ state ->
-                        if (!screenState(state)){
+                        if (!screenState(state)) {
                             return@collectState
                         }
 
@@ -85,7 +85,6 @@ abstract class Bloc<Event, State>(private val blocScope: CoroutineScope, initial
         eventCollectJob?.cancel()
     }
 
-    override fun toString(): String {
-        return super.toString().getSimpleClassName()
-    }
+    override fun toString() = super.toString().getSimpleClassName()
+
 }
