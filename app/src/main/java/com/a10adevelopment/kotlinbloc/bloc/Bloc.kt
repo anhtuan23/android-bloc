@@ -44,6 +44,10 @@ abstract class Bloc<Event, State>(private val blocScope: CoroutineScope, initial
                     flow {
                         mapEventToState(it)
                     }.collect collectState@{ nextState ->
+                        if (!screenState(nextState)){
+                            return@collectState
+                        }
+
                         val transition = Transition(currentState, it, nextState)
                         onTransition(transition)
                         _stateFlow.emit(nextState)
@@ -70,6 +74,8 @@ abstract class Bloc<Event, State>(private val blocScope: CoroutineScope, initial
     protected open suspend fun screenEvent(event: Event): Boolean = true
 
     protected open suspend fun transformEvent(event: Event): Event = event
+
+    protected open suspend fun screenState(state: State): Boolean = true
 
     fun onClose() {
         eventCollectJob?.cancel()
