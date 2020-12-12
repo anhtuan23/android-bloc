@@ -10,6 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.tooling.preview.Preview
+import com.a10adevelopment.kotlinbloc.bloc.CounterEvent
+import com.a10adevelopment.kotlinbloc.bloc.CounterState
 import com.a10adevelopment.kotlinbloc.ui.KotlinBlocTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -36,11 +38,12 @@ class MainActivity : AppCompatActivity() {
 @ExperimentalCoroutinesApi
 @Composable
 fun HomeScreen(viewModel: MainViewModel) {
-    val counterState = viewModel.counterStateFlow.collectAsState().value
+    val counterBloc = viewModel.counterBloc
+    val counterState = counterBloc.stateFlow.collectAsState().value
     Scaffold(floatingActionButton = {
         FloatingActionButton(
             onClick = {
-                viewModel.increment()
+                counterBloc.add(CounterEvent.Increase)
             }
         ) {
             Icon(Icons.Outlined.Add)
