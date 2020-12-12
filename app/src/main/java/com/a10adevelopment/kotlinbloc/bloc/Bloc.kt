@@ -21,32 +21,44 @@ abstract class Bloc<Event, State>(private val blocScope: CoroutineScope, initial
     }
 
     fun add(event: Event) {
-        blocScope.launch {
-            _eventFlow.emit(event)
+        try {
+            blocScope.launch {
+                _eventFlow.emit(event)
+            }
+        } catch (e: Exception) {
+            onError(e)
         }
     }
 
     protected abstract suspend fun FlowCollector<State>.mapEventToState(event: Event)
 
     private fun startCollectEvent() {
-        eventCollectJob = blocScope.launch {
-            _eventFlow.collect {
-                flow {
-                    mapEventToState(it)
-                }.collect collectState@{ nextState ->
-                    if (nextState == currentState) {
-                        return@collectState
+        try {
+            eventCollectJob = blocScope.launch {
+                _eventFlow.collect {
+                    flow {
+                        mapEventToState(it)
+                    }.collect collectState@{ nextState ->
+                        if (nextState == currentState) {
+                            return@collectState
+                        }
+                        val transition = Transition(currentState, it, nextState)
+                        onTransition(transition)
+                        _stateFlow.emit(nextState)
                     }
-                    val transition = Transition(currentState, it, nextState)
-                    onTransition(transition)
-                    _stateFlow.emit(nextState)
                 }
             }
+        } catch (e: Exception) {
+            onError(e)
         }
     }
 
-    protected fun onTransition(transition: Transition<Event, State>) {
+    protected open fun onTransition(transition: Transition<Event, State>) {
         Timber.d("\t${this@Bloc}: $transition")
+    }
+
+    protected open fun onError(e: Exception) {
+        Timber.e(e)
     }
 
     fun onClose() {
