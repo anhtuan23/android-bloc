@@ -22,7 +22,11 @@ abstract class Bloc<Event, State>(private val blocScope: CoroutineScope, initial
 
     fun add(event: Event) {
         try {
+            onEvent(event)
             blocScope.launch {
+                if (!screenEvent(event)) {
+                    return@launch
+                }
                 _eventFlow.emit(event)
             }
         } catch (e: Exception) {
@@ -36,12 +40,10 @@ abstract class Bloc<Event, State>(private val blocScope: CoroutineScope, initial
         try {
             eventCollectJob = blocScope.launch {
                 _eventFlow.collect {
+                    // Dummy flow of next state to asses both current and next state
                     flow {
                         mapEventToState(it)
                     }.collect collectState@{ nextState ->
-                        if (nextState == currentState) {
-                            return@collectState
-                        }
                         val transition = Transition(currentState, it, nextState)
                         onTransition(transition)
                         _stateFlow.emit(nextState)
@@ -60,6 +62,12 @@ abstract class Bloc<Event, State>(private val blocScope: CoroutineScope, initial
     protected open fun onError(e: Exception) {
         Timber.e(e)
     }
+
+    protected open fun onEvent(event: Event) {
+        Timber.d("\t${this@Bloc} received EVENT ${event.toString().getSimpleClassName()}")
+    }
+
+    protected open suspend fun screenEvent(event: Event): Boolean = true
 
     fun onClose() {
         eventCollectJob?.cancel()
