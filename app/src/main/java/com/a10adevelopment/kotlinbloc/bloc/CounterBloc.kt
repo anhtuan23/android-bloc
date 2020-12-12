@@ -1,6 +1,7 @@
 package com.a10adevelopment.kotlinbloc.bloc
 
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableStateFlow
 
 /**
@@ -11,7 +12,7 @@ class CounterBloc(
     initialState: CounterState = CounterState.Initial,
 ) : Bloc<CounterEvent, CounterState>(blocScope, initialState) {
 
-    override suspend fun MutableStateFlow<CounterState>.mapEventToState(event: CounterEvent) {
+    override suspend fun FlowCollector<CounterState>.mapEventToState(event: CounterEvent) {
         when (event) {
             is CounterEvent.Increase -> emit(onIncrease())
             is CounterEvent.Decrease -> emit(onDecrease())

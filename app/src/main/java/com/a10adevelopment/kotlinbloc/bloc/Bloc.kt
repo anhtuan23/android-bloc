@@ -2,13 +2,11 @@ package com.a10adevelopment.kotlinbloc.bloc
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
-abstract class Bloc<Event, State>(private val blocScope: CoroutineScope, initialState: State){
+abstract class Bloc<Event, State>(private val blocScope: CoroutineScope, initialState: State) {
     private var eventCollectJob: Job? = null
 
     private val _stateFlow: MutableStateFlow<State> = MutableStateFlow(initialState)
@@ -19,11 +17,7 @@ abstract class Bloc<Event, State>(private val blocScope: CoroutineScope, initial
     private val _eventFlow = MutableSharedFlow<Event>()
 
     init {
-        eventCollectJob = blocScope.launch {
-            _eventFlow.collect {
-                _stateFlow.mapEventToState(it)
-            }
-        }
+        startCollectEvent()
     }
 
     fun add(event: Event) {
@@ -32,10 +26,30 @@ abstract class Bloc<Event, State>(private val blocScope: CoroutineScope, initial
         }
     }
 
-    protected abstract suspend fun MutableStateFlow<State>.mapEventToState(event: Event)
+    protected abstract suspend fun FlowCollector<State>.mapEventToState(event: Event)
 
     fun onClose() {
         eventCollectJob?.cancel()
     }
 
+    private fun startCollectEvent() {
+        eventCollectJob = blocScope.launch {
+            _eventFlow.collect {
+                flow {
+                    mapEventToState(it)
+                }.collect collectState@{ nextState ->
+                    if (nextState == currentState) {
+                        return@collectState
+                    }
+                    val transition = Transition(currentState, it, nextState)
+                    Timber.d("\t${this@Bloc}: $transition")
+                    _stateFlow.emit(nextState)
+                }
+            }
+        }
+    }
+
+    override fun toString(): String {
+        return super.toString().getSimpleClassName()
+    }
 }
