@@ -27,7 +27,7 @@ abstract class Bloc<Event, State>(private val blocScope: CoroutineScope, initial
                 if (!screenEvent(event)) {
                     return@launch
                 }
-                _eventFlow.emit(event)
+                _eventFlow.emit(transformEvent(event))
             }
         } catch (e: Exception) {
             onError(e)
@@ -68,6 +68,8 @@ abstract class Bloc<Event, State>(private val blocScope: CoroutineScope, initial
     }
 
     protected open suspend fun screenEvent(event: Event): Boolean = true
+
+    protected open suspend fun transformEvent(event: Event): Event = event
 
     fun onClose() {
         eventCollectJob?.cancel()
