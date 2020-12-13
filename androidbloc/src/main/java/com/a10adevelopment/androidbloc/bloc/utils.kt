@@ -1,4 +1,4 @@
-package com.a10adevelopment.bloc.androidbloc
+package com.a10adevelopment.androidbloc.bloc
 
 fun String.getSimpleClassName(): String {
     val lastDotIndex = this.indexOfLast { it == '.' }

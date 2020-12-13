@@ -1,4 +1,4 @@
-package com.a10adevelopment.bloc
+package com.a10adevelopment.androidbloc
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

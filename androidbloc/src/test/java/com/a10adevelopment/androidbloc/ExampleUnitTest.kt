@@ -1,4 +1,4 @@
-package com.a10adevelopment.bloc
+package com.a10adevelopment.androidbloc
 
 import org.junit.Test
 
