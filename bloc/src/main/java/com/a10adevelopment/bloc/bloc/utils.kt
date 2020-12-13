@@ -1,4 +1,4 @@
-package com.a10adevelopment.kotlinbloc.bloc
+package com.a10adevelopment.bloc.bloc
 
 fun String.getSimpleClassName(): String {
     val lastDotIndex = this.indexOfLast { it == '.' }

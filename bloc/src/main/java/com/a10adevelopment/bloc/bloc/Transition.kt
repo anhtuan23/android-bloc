@@ -1,4 +1,4 @@
-package com.a10adevelopment.kotlinbloc.bloc
+package com.a10adevelopment.bloc.bloc
 
 data class Transition<Event, State>(
     val currentState: State,

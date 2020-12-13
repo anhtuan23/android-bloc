@@ -1,2 +1,3 @@
 rootProject.name = "KotlinBloc"
 include ':app'
+include ':bloc'

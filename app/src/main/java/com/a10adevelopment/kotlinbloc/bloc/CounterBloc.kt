@@ -1,8 +1,8 @@
 package com.a10adevelopment.kotlinbloc.bloc
 
+import com.a10adevelopment.bloc.bloc.Bloc
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.FlowCollector
-import kotlinx.coroutines.flow.MutableStateFlow
 
 /**
  * Inspired by https://github.com/programadorthi/android-bloc/blob/master/arch/androidbloc/src/main/java/br/com/programadorthi/androidbloc/AndroidBloc.kt

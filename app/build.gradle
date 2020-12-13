@@ -37,11 +37,13 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
-        kotlinCompilerVersion '1.4.20'
+        kotlinCompilerVersion kotlin_version
     }
 }
 
 dependencies {
+
+    implementation project(":bloc")
 
     // OTHERS
     implementation 'com.jakewharton.timber:timber:4.7.1'
