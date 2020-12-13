@@ -44,3 +44,29 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
+
+ext {
+    bintrayRepo = 'android_bloc'
+    bintrayName = 'com.a10adevelopment.androidbloc'
+
+    publishedGroupId = 'com.a10adevelopment.androidbloc'
+    libraryName = 'android_bloc'
+    artifact = 'androidbloc'
+
+    libraryDescription = 'A Bloc implementation for Android'
+
+    siteUrl = 'https://github.com/anhtuan23/android-bloc'
+    gitUrl = 'https://github.com/anhtuan23/android-bloc.git'
+
+    libraryVersion = '0.1.0'
+
+    developerId = 'kaestrl'
+    developerName = 'Anh Do'
+    developerEmail = '10adevelopment@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+apply from: 'publish.gradle'
