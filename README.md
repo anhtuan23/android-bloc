@@ -3,7 +3,7 @@ A Bloc implementation for Android, inspired by [programadorthi/android-bloc](htt
 
 ## Install
 ```
-implementation 'com.a10adevelopment.androidbloc:androidbloc:0.1.0'
+implementation 'com.a10adevelopment.androidbloc:androidbloc:0.1.1'
 ```
 
 ## Usage
