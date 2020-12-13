@@ -3,11 +3,12 @@ package com.a10adevelopment.counterapp.bloc
 import com.a10adevelopment.androidbloc.bloc.Bloc
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.FlowCollector
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class CounterBloc(
-    blocScope: CoroutineScope,
-    initialState: CounterState = CounterState.Initial,
-) : Bloc<CounterEvent, CounterState>(blocScope, initialState) {
+@Singleton
+class CounterBloc @Inject constructor(blocScope: CoroutineScope) :
+    Bloc<CounterEvent, CounterState>(blocScope, CounterState.Initial) {
 
     override suspend fun FlowCollector<CounterState>.mapEventToState(event: CounterEvent) {
         when (event) {

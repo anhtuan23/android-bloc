@@ -2,12 +2,10 @@ package com.a10adevelopment.counterapp
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.a10adevelopment.counterapp.bloc.CounterBloc
+import javax.inject.Inject
 
-class MainViewModel @ViewModelInject constructor() : ViewModel() {
-
-    val counterBloc = CounterBloc(viewModelScope)
+class MainViewModel @ViewModelInject constructor(val counterBloc: CounterBloc) : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
