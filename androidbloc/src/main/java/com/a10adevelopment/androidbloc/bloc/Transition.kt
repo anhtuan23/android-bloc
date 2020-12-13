@@ -6,10 +6,10 @@ data class Transition<Event, State>(
     val nextState: State,
 
 
-) {
+    ) {
     override fun toString(): String {
-        return "TRANSITION: currentState=${currentState?.toString()?.getSimpleClassName()}" +
-                "\t=>\tevent=${event?.toString()?.getSimpleClassName()}" +
-                "\t=>\tnextState=${nextState?.toString()?.getSimpleClassName()} "
+        return "TRANSITION: currentState=${currentState?.toString()}" +
+                "\t=>\tevent=$event" +
+                "\t=>\tnextState=$nextState "
     }
 }
