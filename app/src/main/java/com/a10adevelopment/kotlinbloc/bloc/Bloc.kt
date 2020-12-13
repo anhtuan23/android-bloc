@@ -22,6 +22,7 @@ abstract class Bloc<Event, State>(private val blocScope: CoroutineScope, initial
 
     fun add(event: Event) {
         try {
+            BlocObserver.callOnEvent(event)
             onEvent(event)
             blocScope.launch {
                 if (!screenEvent(event)) {
@@ -30,6 +31,7 @@ abstract class Bloc<Event, State>(private val blocScope: CoroutineScope, initial
                 _eventFlow.emit(transformEvent(event))
             }
         } catch (e: Exception) {
+            BlocObserver.callOnError(e)
             onError(e)
         }
     }
@@ -37,8 +39,8 @@ abstract class Bloc<Event, State>(private val blocScope: CoroutineScope, initial
     protected abstract suspend fun FlowCollector<State>.mapEventToState(event: Event)
 
     private fun startCollectEvent() {
-        try {
-            eventCollectJob = blocScope.launch {
+        eventCollectJob = blocScope.launch {
+            try {
                 _eventFlow.collect {
                     // Dummy flow of next state to asses both current and next state
                     flow {
@@ -51,13 +53,15 @@ abstract class Bloc<Event, State>(private val blocScope: CoroutineScope, initial
                         val nextState = transformState(state)
 
                         val transition = Transition(currentState, it, nextState)
+                        BlocObserver.callOnTransition(transition)
                         onTransition(transition)
                         _stateFlow.emit(nextState)
                     }
                 }
+            } catch (e: Exception) {
+                BlocObserver.callOnError(e)
+                onError(e)
             }
-        } catch (e: Exception) {
-            onError(e)
         }
     }
 
