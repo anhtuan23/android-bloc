@@ -1,4 +1,4 @@
-package com.a10adevelopment.kotlinbloc
+package com.a10adevelopment.counterapp
 
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -15,9 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.a10adevelopment.kotlinbloc.bloc.CounterEvent
-import com.a10adevelopment.kotlinbloc.bloc.CounterState
-import com.a10adevelopment.kotlinbloc.ui.KotlinBlocTheme
+import com.a10adevelopment.counterapp.bloc.CounterEvent
+import com.a10adevelopment.counterapp.bloc.CounterState
+import com.a10adevelopment.counterapp.ui.KotlinBlocTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 

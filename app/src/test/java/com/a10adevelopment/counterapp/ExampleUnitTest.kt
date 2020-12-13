@@ -1,4 +1,4 @@
-package com.a10adevelopment.kotlinbloc
+package com.a10adevelopment.counterapp
 
 import org.junit.Test
 

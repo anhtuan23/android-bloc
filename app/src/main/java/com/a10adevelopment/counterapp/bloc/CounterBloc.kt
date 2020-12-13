@@ -1,4 +1,4 @@
-package com.a10adevelopment.kotlinbloc.bloc
+package com.a10adevelopment.counterapp.bloc
 
 import com.a10adevelopment.androidbloc.bloc.Bloc
 import kotlinx.coroutines.CoroutineScope

@@ -1,4 +1,4 @@
-package com.a10adevelopment.kotlinbloc.ui
+package com.a10adevelopment.counterapp.ui
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

@@ -1,4 +1,4 @@
-package com.a10adevelopment.kotlinbloc
+package com.a10adevelopment.counterapp
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
