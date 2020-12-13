@@ -1,4 +1,4 @@
-package com.a10adevelopment.bloc.bloc
+package com.a10adevelopment.bloc.androidbloc
 
 data class Transition<Event, State>(
     val currentState: State,

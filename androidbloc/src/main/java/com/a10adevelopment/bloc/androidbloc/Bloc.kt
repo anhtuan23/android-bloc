@@ -1,4 +1,4 @@
-package com.a10adevelopment.bloc.bloc
+package com.a10adevelopment.bloc.androidbloc
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job

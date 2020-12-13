@@ -1,6 +1,6 @@
 package com.a10adevelopment.kotlinbloc.bloc
 
-import com.a10adevelopment.bloc.bloc.Bloc
+import com.a10adevelopment.bloc.androidbloc.Bloc
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.FlowCollector
 

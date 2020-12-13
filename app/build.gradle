@@ -43,7 +43,7 @@ android {
 
 dependencies {
 
-    implementation project(":bloc")
+    implementation project(':androidbloc')
 
     // OTHERS
     implementation 'com.jakewharton.timber:timber:4.7.1'

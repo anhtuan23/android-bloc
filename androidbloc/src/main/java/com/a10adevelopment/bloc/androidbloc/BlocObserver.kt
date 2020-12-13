@@ -1,4 +1,4 @@
-package com.a10adevelopment.bloc.bloc
+package com.a10adevelopment.bloc.androidbloc
 
 interface BlocObserver {
     fun onError(cause: Throwable)
