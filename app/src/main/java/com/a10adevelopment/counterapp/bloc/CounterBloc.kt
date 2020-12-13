@@ -4,9 +4,6 @@ import com.a10adevelopment.androidbloc.bloc.Bloc
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.FlowCollector
 
-/**
- * Inspired by https://github.com/programadorthi/android-bloc/blob/master/arch/androidbloc/src/main/java/br/com/programadorthi/androidbloc/AndroidBloc.kt
- */
 class CounterBloc(
     blocScope: CoroutineScope,
     initialState: CounterState = CounterState.Initial,
