@@ -90,7 +90,7 @@ abstract class Bloc<Event, State>(private val blocScope: CoroutineScope, initial
 
     protected open suspend fun transformState(state: State): State = state
 
-    fun onClose() {
+    open fun onClose() {
         eventCollectJob?.cancel()
     }
 
