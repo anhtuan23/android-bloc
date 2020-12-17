@@ -58,7 +58,7 @@ ext {
     siteUrl = 'https://github.com/anhtuan23/android-bloc'
     gitUrl = 'https://github.com/anhtuan23/android-bloc.git'
 
-    libraryVersion = '0.1.1'
+    libraryVersion = '0.1.3'
 
     developerId = 'kaestrl'
     developerName = 'Anh Do'
