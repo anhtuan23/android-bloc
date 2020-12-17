@@ -1,6 +1,10 @@
 # android-bloc
 A Bloc implementation for Android, inspired by [programadorthi/android-bloc](https://github.com/programadorthi/android-bloc)
 
+The state is exposed via a Kotlin's [StateFlow](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow).
+
+Designed to work nicely with [Jetpack Compose](https://developer.android.com/jetpack/compose).
+
 ## Install
 ```
 implementation 'com.a10adevelopment.androidbloc:androidbloc:0.1.3'
