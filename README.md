@@ -5,6 +5,9 @@ The state is exposed via a Kotlin's [StateFlow](https://developer.android.com/ko
 
 Designed to work nicely with [Jetpack Compose](https://developer.android.com/jetpack/compose).
 
+[![Release](https://jitpack.io/v/User/Repo.svg)]
+(https://jitpack.io/#User/Repo)
+
 ## Install
 ```
 implementation 'com.a10adevelopment.androidbloc:androidbloc:0.1.3'
@@ -114,11 +117,3 @@ fun HomeScreen(viewModel: MainViewModel) {
     }
 }
  ```
-
-
- ## Upload to Bintray
-
- ```
- gradlew install
- gradlew bintrayUpload
-```
