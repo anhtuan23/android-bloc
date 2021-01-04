@@ -8,8 +8,21 @@ Designed to work nicely with [Jetpack Compose](https://developer.android.com/jet
 [![](https://jitpack.io/v/anhtuan23/android-bloc.svg)](https://jitpack.io/#anhtuan23/android-bloc)
 
 ## Install
+Add jitpack.io in your root build.gradle at the end of repositories:
 ```
-implementation 'com.a10adevelopment.androidbloc:androidbloc:0.1.3'
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
+Add the dependency
+```
+dependencies {
+	        implementation 'com.github.anhtuan23:android-bloc:v0.1.6'
+	}
 ```
 
 ## Usage
