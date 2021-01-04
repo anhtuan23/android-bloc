@@ -79,7 +79,7 @@ abstract class Bloc<Event, State>(private val blocScope: CoroutineScope, initial
     }
 
     protected open fun onEvent(event: Event) {
-        Timber.d("\t${this@Bloc} received EVENT $event")
+        Timber.d("\t${this@Bloc} received EVENT ~~~~~~~~~ ${event!!::class.simpleName}")
     }
 
     protected open suspend fun screenEvent(event: Event): Boolean = true
@@ -93,5 +93,4 @@ abstract class Bloc<Event, State>(private val blocScope: CoroutineScope, initial
     open fun onClose() {
         eventCollectJob?.cancel()
     }
-
 }
