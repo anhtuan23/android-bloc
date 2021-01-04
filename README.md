@@ -5,8 +5,7 @@ The state is exposed via a Kotlin's [StateFlow](https://developer.android.com/ko
 
 Designed to work nicely with [Jetpack Compose](https://developer.android.com/jetpack/compose).
 
-[![Release](https://jitpack.io/v/User/Repo.svg)]
-(https://jitpack.io/#User/Repo)
+[![](https://jitpack.io/v/anhtuan23/android-bloc.svg)](https://jitpack.io/#anhtuan23/android-bloc)
 
 ## Install
 ```
