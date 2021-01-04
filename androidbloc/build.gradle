@@ -58,7 +58,7 @@ ext {
     siteUrl = 'https://github.com/anhtuan23/android-bloc'
     gitUrl = 'https://github.com/anhtuan23/android-bloc.git'
 
-    libraryVersion = '0.1.3'
+    libraryVersion = '0.1.4'
 
     developerId = 'kaestrl'
     developerName = 'Anh Do'
@@ -69,4 +69,25 @@ ext {
     allLicenses = ["Apache-2.0"]
 }
 
-apply from: 'publish.gradle'
+
+apply from: '../maven-publish-helper.gradle'
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            // Specify own groupId as package name of your library,
+            // otherwise it would just use project's name (=name of the root directory) by default.
+            groupId publishedGroupId
+
+            // Specify custom artifactId if needed,
+            // otherwise it would use module's name by default.
+            //artifactId 'custom-artifact'
+            artifactId artifact
+
+            // You can specify custom version,
+            // otherwise it would use version from `android { defaultConfig { ... } }` by default.
+            //version = '1.0'
+            version = libraryVersion
+        }
+    }
+}
